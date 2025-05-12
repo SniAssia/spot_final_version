@@ -11,7 +11,7 @@
         <div class="flex items-center">
           <input
             v-model="query"
-            @keyup.enter="search"
+            @input="search" 
             placeholder="Rechercher des artistes, titres ou podcasts"
             class="w-full p-3 bg-gray-800 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sea-blue transition-all duration-300"
           />
@@ -22,8 +22,8 @@
       <section class="p-4">
         <h2 v-if="results && results.length > 0" class="text-2xl font-bold mb-4">Résultats de recherche</h2>
         
-        <!-- Si aucun résultat trouvé -->
-        <div v-if="results && results.length === 0" class="text-center text-gray-400 mt-8">
+        <!-- Affichage de "Aucun résultat trouvé" si la recherche est effectuée mais aucun résultat -->
+        <div v-if="searchPerformed && results && results.length === 0" class="text-center text-gray-400 mt-8">
           Aucun résultat trouvé pour "{{ query }}".
         </div>
         
@@ -49,6 +49,8 @@
             </button>
           </div>
         </div>
+
+        <!-- Affichage du loader pendant la recherche -->
         <div v-else-if="loading" class="text-center mt-8">
           <svg class="animate-spin h-8 w-8 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle
@@ -104,8 +106,11 @@ export default {
       deviceId: null,
       currentTrack: null,
       query: '',
-      results: null,
+      results: [],  // This will store the search results
+      randomResults: [], // Store random results here
       loading: false,
+      searchTimeout: null,  // This will store the timeout ID
+      searchPerformed: false,  // Track if search has been performed
     };
   },
   mounted() {
@@ -114,6 +119,9 @@ export default {
       console.error('Token non disponible. Veuillez vous reconnecter.');
       return;
     }
+
+    // Fetch and display random results on load
+    this.fetchRandomResults();
 
     if (window.Spotify) {
       this.initializePlayer(token);
@@ -125,75 +133,70 @@ export default {
   },
   methods: {
     ...mapMutations(['setDeviceId']),
-    initializePlayer(token) {
-      console.log('Initialisation du lecteur Spotify.');
+    
+    // Debounced search method
+    search() {
+      // Clear the previous timeout to avoid firing multiple requests
+      clearTimeout(this.searchTimeout);
 
-      this.player = new Spotify.Player({
-        name: 'Spotify Clone Player',
-        getOAuthToken: (cb) => {
-          cb(token);
-        },
-        volume: 0.5,
-      });
+      // Set a new timeout for 500ms after the user stops typing
+      this.searchTimeout = setTimeout(async () => {
+        this.loading = true;
+        this.searchPerformed = true;  // Mark that search has been performed
+        console.log('Recherche en cours pour:', this.query); // Log de la recherche en cours
 
-      this.player.addListener('ready', ({ device_id }) => {
-        console.log('Lecteur prêt avec Device ID :', device_id);
-        this.deviceId = device_id;
-        this.setDeviceId(device_id);
-      });
+        try {
+          const token = localStorage.getItem('spotify_access_token');
+          if (!token) {
+            console.error('Token non disponible. Veuillez vous reconnecter.');
+            return;
+          }
 
-      this.player.addListener('player_state_changed', (state) => {
-        if (state) {
-          const track = state.track_window.current_track;
-          this.currentTrack = {
-            name: track.name,
-            artist: track.artists[0]?.name,
-            albumCover: track.album.images[0]?.url,
-            albumName: track.album.name,
-          };
-          console.log('Morceau en cours :', this.currentTrack);
+          const response = await this.$axios.$get(
+            'https://api.spotify.com/v1/search',
+            {
+              params: { q: this.query, type: 'track' },
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          // Log the response to verify its structure
+          console.log('Réponse de la recherche:', response);
+
+          this.results = response.tracks?.items || [];
+          console.log('Résultats:', this.results); // Verify the search results
+        } catch (error) {
+          console.error('Erreur lors de la recherche :', error.response?.data || error.message);
+        } finally {
+          this.loading = false;
         }
-      });
-
-      this.player.connect().then((success) => {
-        if (success) {
-          console.log('Lecteur Spotify connecté.');
-        } else {
-          console.error('Échec de la connexion au lecteur Spotify.');
-        }
-      });
+      }, 500);  // Wait for 500ms after the user stops typing before calling search
     },
 
-    async search() {
-      this.loading = true;
-      console.log('Recherche en cours pour:', this.query); // Log de la recherche en cours
+    // Fetch random results on load
+    async fetchRandomResults() {
+      const token = localStorage.getItem('spotify_access_token');
+      if (!token) {
+        console.error('Token non disponible. Veuillez vous reconnecter.');
+        return;
+      }
 
       try {
-        const token = localStorage.getItem('spotify_access_token');
-        if (!token) {
-          console.error('Token non disponible. Veuillez vous reconnecter.');
-          return;
-        }
-
         const response = await this.$axios.$get(
-          'https://api.spotify.com/v1/search',
+          'https://api.spotify.com/v1/browse/featured-playlists', // Endpoint to get random featured playlists
           {
-            params: { q: this.query, type: 'track' },
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
 
-        // Ajoutez un log pour vérifier la structure de la réponse
-        console.log('Réponse de la recherche:', response);
-
-        this.results = response.tracks?.items || [];
-        console.log('Résultats:', this.results); // Vérification des résultats
+        this.randomResults = response.playlists?.items || [];
+        this.results = this.randomResults; // Set random results initially
       } catch (error) {
-        console.error('Erreur lors de la recherche :', error.response?.data || error.message);
-      } finally {
-        this.loading = false;
+        console.error('Erreur lors de la récupération des résultats aléatoires :', error.response?.data || error.message);
       }
     },
 
@@ -248,27 +251,45 @@ export default {
         console.error('Erreur lors de la mise en pause :', error.response?.data || error.message);
       }
     },
+
+    initializePlayer(token) {
+      console.log('Initialisation du lecteur Spotify.');
+
+      this.player = new Spotify.Player({
+        name: 'Spotify Clone Player',
+        getOAuthToken: (cb) => {
+          cb(token);
+        },
+        volume: 0.5,
+      });
+
+      this.player.addListener('ready', ({ device_id }) => {
+        console.log('Lecteur prêt avec Device ID :', device_id);
+        this.deviceId = device_id;
+        this.setDeviceId(device_id);
+      });
+
+      this.player.addListener('player_state_changed', (state) => {
+        if (state) {
+          const track = state.track_window.current_track;
+          this.currentTrack = {
+            name: track.name,
+            artist: track.artists[0]?.name,
+            albumCover: track.album.images[0]?.url,
+            albumName: track.album.name,
+          };
+          console.log('Morceau en cours :', this.currentTrack);
+        }
+      });
+
+      this.player.connect().then((success) => {
+        if (success) {
+          console.log('Lecteur Spotify connecté.');
+        } else {
+          console.error('Échec de la connexion au lecteur Spotify.');
+        }
+      });
+    },
   },
 };
 </script>
-
-<style scoped>
-/* Custom CSS for better effects and responsiveness */
-
-/* For the input field when focused */
-input:focus {
-  border-color: #1D4ED8; /* Blue sea */
-  background-color: #333; /* Darker shade for better contrast */
-}
-
-/* Hover effect for cards in search results */
-.grid > div:hover {
-  transform: scale(1.05);
-  background-color: #2D3748; /* Darker gray */
-}
-
-/* Hover effect for images */
-img:hover {
-  transform: scale(1.05);
-}
-</style>
