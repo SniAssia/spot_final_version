@@ -37,8 +37,8 @@
 export default {
   methods: {
     redirectToSpotify() {
-      const clientId = '637ca364d801495da5109a9936b99211';
-      const redirectUri = 'https://d614-41-137-204-12.ngrok-free.app/callback'; // Assurez-vous que cela correspond à l'URI de redirection dans le tableau de bord Spotify
+      const clientId = 'b67242166614459ba1709a33bf52b76c';
+      const redirectUri = 'https://spot-final-version.vercel.app/callback'; // Assurez-vous que cela correspond à l'URI de redirection dans le tableau de bord Spotify
       console.log('Client ID:', clientId);
       console.log('Redirect URI:', redirectUri);
 

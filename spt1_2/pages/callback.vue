@@ -28,9 +28,9 @@ export default {
       new URLSearchParams({
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: 'https://d614-41-137-204-12.ngrok-free.app/callback', // Assurez-vous que c'est la même que dans le Dashboard
-        client_id: '637ca364d801495da5109a9936b99211',
-        client_secret: '46eeab5d0eda4810955feeb0a159b537',
+        redirect_uri: 'https://spot-final-version.vercel.app/callback', // Assurez-vous que c'est la même que dans le Dashboard
+        client_id: 'b67242166614459ba1709a33bf52b76c',
+        client_secret: '9e2c86e4be864dee9073a94cba0595bc',
       }),
       {
         headers: {
