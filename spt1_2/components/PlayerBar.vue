@@ -1,26 +1,26 @@
 <template>
-  <div class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-black via-[#2d0036] to-[#1a0022] p-4 flex items-center border-t border-pink-900 shadow-2xl">
+  <div class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-black via-[#003d59] to-[#001e2b] p-4 flex items-center border-t border-teal-900 shadow-2xl">
     <!-- Left section: Track info and like button -->
     <div class="flex items-center w-1/3">
       <img
         v-if="currentTrack"
         :src="currentTrack.albumCover || require('~/assets/default-album.png')"
         :alt="currentTrack.name"
-        class="w-16 h-16 object-cover mr-4 rounded shadow-lg border-2 border-pink-400"
+        class="w-16 h-16 object-cover mr-4 rounded shadow-lg border-2 border-teal-400"
       />
       <div v-if="currentTrack" class="flex-1">
-        <p class="text-pink-100 font-semibold">{{ currentTrack.name }}</p>
-        <p class="text-pink-300">{{ currentTrack.artist }}</p>
+        <p class="text-teal-100 font-semibold">{{ currentTrack.name }}</p>
+        <p class="text-teal-300">{{ currentTrack.artist }}</p>
       </div>
       <button 
         v-if="currentTrack"
         @click="toggleLike(currentTrack.id)" 
-        class="text-pink-400 hover:text-pink-200 transition-colors duration-200 ml-4"
-        :class="{ 'text-pink-500': isTrackLiked(currentTrack.id) }"
+        class="text-teal-400 hover:text-teal-200 transition-colors duration-200 ml-4"
+        :class="{ 'text-teal-500': isTrackLiked(currentTrack.id) }"
       >
         <i class="material-icons">{{ isTrackLiked(currentTrack.id) ? 'favorite' : 'favorite_border' }}</i>
       </button>
-      <div v-else class="text-pink-300">
+      <div v-else class="text-teal-300">
         Aucune piste en cours de lecture
       </div>
     </div>
@@ -28,32 +28,32 @@
     <!-- Center section: Playback controls -->
     <div class="flex flex-col items-center w-1/3">
       <div class="flex items-center space-x-4 mb-2">
-        <button @click="previousTrack" class="text-pink-300 hover:text-pink-100 transition-colors duration-200">
+        <button @click="previousTrack" class="text-teal-300 hover:text-teal-100 transition-colors duration-200">
           <i class="material-icons">skip_previous</i>
         </button>
-        <button @click="togglePlayback" class="text-pink-100 hover:text-pink-400 transition-colors duration-200">
+        <button @click="togglePlayback" class="text-teal-100 hover:text-teal-400 transition-colors duration-200">
           <i class="material-icons text-3xl">{{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}</i>
         </button>
-        <button @click="nextTrack" class="text-pink-300 hover:text-pink-100 transition-colors duration-200">
+        <button @click="nextTrack" class="text-teal-300 hover:text-teal-100 transition-colors duration-200">
           <i class="material-icons">skip_next</i>
         </button>
       </div>
       <!-- Progress bar -->
       <div class="w-full flex items-center space-x-2">
-        <span class="text-xs text-pink-300">{{ formatTime(currentTime) }}</span>
-        <div class="flex-1 h-1 bg-pink-900 rounded-full cursor-pointer" @click="seekTo">
+        <span class="text-xs text-teal-300">{{ formatTime(currentTime) }}</span>
+        <div class="flex-1 h-1 bg-teal-900 rounded-full cursor-pointer" @click="seekTo">
           <div 
-            class="h-full bg-pink-400 rounded-full" 
+            class="h-full bg-teal-400 rounded-full" 
             :style="{ width: `${(currentTime / duration) * 100}%` }"
           ></div>
         </div>
-        <span class="text-xs text-pink-300">{{ formatTime(duration) }}</span>
+        <span class="text-xs text-teal-300">{{ formatTime(duration) }}</span>
       </div>
     </div>
 
     <!-- Right section: Volume control -->
     <div class="flex items-center justify-end w-1/3 space-x-4">
-      <button @click="toggleMute" class="text-pink-300 hover:text-pink-100 transition-colors duration-200">
+      <button @click="toggleMute" class="text-teal-300 hover:text-teal-100 transition-colors duration-200">
         <i class="material-icons">{{ volumeIcon }}</i>
       </button>
       <div class="flex items-center space-x-2 w-32">
@@ -63,7 +63,7 @@
           min="0"
           max="100"
           @input="setVolume"
-          class="w-full h-1 bg-pink-900 rounded-full appearance-none cursor-pointer accent-pink-400"
+          class="w-full h-1 bg-teal-900 rounded-full appearance-none cursor-pointer accent-teal-400"
         />
       </div>
     </div>

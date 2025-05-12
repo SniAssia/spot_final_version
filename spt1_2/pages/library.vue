@@ -1,17 +1,17 @@
 <template>
-  <div class="flex h-screen bg-gradient-to-br from-black via-[#2d0036] to-[#1a0022] text-white">
+  <div class="flex h-screen bg-gradient-to-br from-[#003d59] via-[#001e2b] to-[#002d3b] text-white">
     <!-- Barre latérale -->
     <Sidebar />
 
     <!-- Contenu principal -->
     <main class="flex-1 overflow-y-auto">
-      <div class="p-8 bg-gradient-to-b from-black/80 via-[#2d0036]/80 to-[#1a0022]/90">
+      <div class="p-8 bg-gradient-to-b from-black/80 via-[#003d59]/80 to-[#002d3b]/90">
         <!-- Header with Create Playlist Button -->
         <div class="flex justify-between items-center mb-8">
-          <h1 class="text-3xl font-bold text-pink-200">Votre Bibliothèque</h1>
+          <h1 class="text-3xl font-bold text-teal-200">Votre Bibliothèque</h1>
           <button
             @click="showCreatePlaylistModal = true"
-            class="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white px-6 py-2 rounded-full flex items-center font-bold shadow-lg hover:shadow-pink-500/40 focus:outline-none focus:ring-4 focus:ring-pink-400"
+            class="bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 hover:from-teal-400 hover:to-blue-400 text-white px-6 py-2 rounded-full flex items-center font-bold shadow-lg hover:shadow-teal-500/40 focus:outline-none focus:ring-4 focus:ring-teal-400"
           >
             <i class="material-icons mr-2">add</i>
             Créer une playlist
@@ -24,7 +24,7 @@
             @click="activeTab = 'playlists'"
             :class="[
               'px-4 py-2 rounded-full transition-colors font-bold',
-              activeTab === 'playlists' ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white' : 'text-pink-300 hover:text-pink-100'
+              activeTab === 'playlists' ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white' : 'text-teal-300 hover:text-teal-100'
             ]"
           >
             Playlists
@@ -33,7 +33,7 @@
             @click="activeTab = 'liked'"
             :class="[
               'px-4 py-2 rounded-full transition-colors font-bold',
-              activeTab === 'liked' ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white' : 'text-pink-300 hover:text-pink-100'
+              activeTab === 'liked' ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white' : 'text-teal-300 hover:text-teal-100'
             ]"
           >
             Titres likés
@@ -46,73 +46,73 @@
             <div
               v-for="track in likedTracks"
               :key="track.id"
-              class="bg-black/70 p-4 rounded-2xl hover:bg-pink-900/30 transition duration-200 ease-in-out transform hover:scale-105 shadow-lg shadow-pink-900/10"
+              class="bg-black/70 p-4 rounded-2xl hover:bg-teal-900/30 transition duration-200 ease-in-out transform hover:scale-105 shadow-lg shadow-teal-900/10"
             >
               <div class="relative group">
                 <img
                   :src="track?.album?.images?.[0]?.url || require('~/assets/default-album.png')"
                   :alt="track?.name || 'Unknown track'"
-                  class="w-full h-40 object-cover mb-2 rounded shadow-lg border-2 border-pink-400"
+                  class="w-full h-40 object-cover mb-2 rounded shadow-lg border-2 border-teal-400"
                 />
                 <div class="absolute bottom-2 right-2 flex space-x-2">
                   <button
                     @click="toggleLike(track.id)"
-                    class="bg-black/70 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-pink-400"
+                    class="bg-black/70 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-teal-400"
                   >
-                    <i class="material-icons text-pink-400">favorite</i>
+                    <i class="material-icons text-teal-400">favorite</i>
                   </button>
                   <button
                     @click="playTrack(track.uri)"
-                    class="bg-gradient-to-r from-pink-500 to-purple-500 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg shadow-pink-500/40"
+                    class="bg-gradient-to-r from-teal-500 to-cyan-500 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg shadow-teal-500/40"
                   >
                     <i class="material-icons">play_arrow</i>
                   </button>
                   <button
                     @click="openAddToPlaylistModal(track)"
-                    class="bg-black/70 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-pink-400"
+                    class="bg-black/70 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-teal-400"
                   >
                     <i class="material-icons">playlist_add</i>
                   </button>
                 </div>
               </div>
-              <h3 class="text-lg font-semibold truncate text-pink-100">{{ track?.name || 'Unknown track' }}</h3>
-              <p class="text-pink-300 text-sm truncate">{{ track?.artists?.[0]?.name || 'Unknown artist' }}</p>
+              <h3 class="text-lg font-semibold truncate text-teal-100">{{ track?.name || 'Unknown track' }}</h3>
+              <p class="text-teal-300 text-sm truncate">{{ track?.artists?.[0]?.name || 'Unknown artist' }}</p>
             </div>
           </div>
         </div>
 
         <!-- Add to Playlist Modal -->
         <div v-if="showAddToPlaylistModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div class="bg-black/90 p-6 rounded-2xl w-full max-w-md border border-pink-900 shadow-lg shadow-pink-900/20">
-            <h2 class="text-2xl font-bold mb-4 text-pink-300">Ajouter à une playlist</h2>
+          <div class="bg-black/90 p-6 rounded-2xl w-full max-w-md border border-teal-900 shadow-lg shadow-teal-900/20">
+            <h2 class="text-2xl font-bold mb-4 text-teal-300">Ajouter à une playlist</h2>
             <div v-if="userPlaylists && userPlaylists.length > 0" class="space-y-4 max-h-96 overflow-y-auto">
-              <div v-for="playlist in userPlaylists" :key="playlist.id" class="flex items-center justify-between p-2 hover:bg-pink-900/30 rounded">
+              <div v-for="playlist in userPlaylists" :key="playlist.id" class="flex items-center justify-between p-2 hover:bg-teal-900/30 rounded">
                 <div class="flex items-center">
                   <img
                     :src="playlist?.images?.[0]?.url || require('~/assets/default-album.png')"
                     :alt="playlist?.name || 'Unknown playlist'"
-                    class="w-12 h-12 object-cover rounded mr-4 border-2 border-pink-400"
+                    class="w-12 h-12 object-cover rounded mr-4 border-2 border-teal-400"
                   />
                   <div>
-                    <h3 class="font-semibold text-pink-100">{{ playlist?.name || 'Unknown playlist' }}</h3>
-                    <p class="text-pink-300 text-sm">{{ playlist?.tracks?.total || 0 }} titres</p>
+                    <h3 class="font-semibold text-teal-100">{{ playlist?.name || 'Unknown playlist' }}</h3>
+                    <p class="text-teal-300 text-sm">{{ playlist?.tracks?.total || 0 }} titres</p>
                   </div>
                 </div>
                 <button
                   @click="addTrackToPlaylist(playlist.id)"
-                  class="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white px-4 py-2 rounded-full shadow-lg shadow-pink-500/40"
+                  class="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-white px-4 py-2 rounded-full shadow-lg shadow-teal-500/40"
                 >
                   Ajouter
                 </button>
               </div>
             </div>
             <div v-else class="text-center py-4">
-              <p class="text-pink-300">Aucune playlist disponible</p>
+              <p class="text-teal-300">Aucune playlist disponible</p>
             </div>
             <div class="mt-6 flex justify-end">
               <button
                 @click="showAddToPlaylistModal = false"
-                class="px-4 py-2 text-pink-200 hover:text-pink-100"
+                class="px-4 py-2 text-teal-200 hover:text-teal-100"
               >
                 Fermer
               </button>
@@ -126,30 +126,30 @@
             <div
               v-for="playlist in userPlaylists"
               :key="playlist.id"
-              class="bg-black/70 p-4 rounded-2xl hover:bg-pink-900/30 transition duration-200 ease-in-out transform hover:scale-105 shadow-lg shadow-pink-900/10"
+              class="bg-black/70 p-4 rounded-2xl hover:bg-teal-900/30 transition duration-200 ease-in-out transform hover:scale-105 shadow-lg shadow-teal-900/10"
             >
               <div class="relative group">
-                <nuxt-link :to="`/playlist/${playlist.id}`" class="block focus:outline-none focus:ring-2 focus:ring-pink-400 rounded">
+                <nuxt-link :to="`/playlist/${playlist.id}`" class="block focus:outline-none focus:ring-2 focus:ring-teal-400 rounded">
                   <img
                     :src="playlist?.images?.[0]?.url || require('~/assets/default-album.png')"
                     :alt="playlist?.name || 'Unknown playlist'"
-                    class="w-full h-40 object-cover mb-2 rounded shadow-lg border-2 border-pink-400 transition-transform duration-200 group-hover:scale-105"
+                    class="w-full h-40 object-cover mb-2 rounded shadow-lg border-2 border-teal-400 transition-transform duration-200 group-hover:scale-105"
                   />
-                  <h3 class="text-lg font-semibold truncate text-pink-100 text-center mt-2">{{ playlist?.name || 'Unknown playlist' }}</h3>
+                  <h3 class="text-lg font-semibold truncate text-teal-100 text-center mt-2">{{ playlist?.name || 'Unknown playlist' }}</h3>
                 </nuxt-link>
                 <div class="absolute bottom-2 right-2 flex space-x-2">
                   <button
                     @click="playPlaylist(playlist.uri)"
-                    class="bg-gradient-to-r from-pink-500 to-purple-500 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg shadow-pink-500/40"
+                    class="bg-gradient-to-r from-teal-500 to-cyan-500 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg shadow-teal-500/40"
                   >
                     <i class="material-icons">play_arrow</i>
                   </button>
                 </div>
               </div>
-              <p class="text-pink-300 text-sm truncate text-center">{{ playlist?.tracks?.total || 0 }} titres</p>
+              <p class="text-teal-300 text-sm truncate text-center">{{ playlist?.tracks?.total || 0 }} titres</p>
               <button
                 @click="playPlaylist(playlist.uri)"
-                class="mt-2 w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white py-2 px-4 rounded-full flex items-center justify-center font-bold shadow-lg shadow-pink-500/40"
+                class="mt-2 w-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-white py-2 px-4 rounded-full flex items-center justify-center font-bold shadow-lg shadow-teal-500/40"
               >
                 <i class="material-icons mr-2">play_arrow</i>
                 LIRE
@@ -160,24 +160,24 @@
 
         <!-- Create Playlist Modal -->
         <div v-if="showCreatePlaylistModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div class="bg-black/90 p-6 rounded-2xl w-full max-w-md border border-pink-900 shadow-lg shadow-pink-900/20">
-            <h2 class="text-2xl font-bold mb-4 text-pink-300">Créer une nouvelle playlist</h2>
+          <div class="bg-black/90 p-6 rounded-2xl w-full max-w-md border border-teal-900 shadow-lg shadow-teal-900/20">
+            <h2 class="text-2xl font-bold mb-4 text-teal-300">Créer une nouvelle playlist</h2>
             <form @submit.prevent="createPlaylist">
               <div class="mb-4">
-                <label class="block text-pink-200 mb-2">Nom de la playlist</label>
+                <label class="block text-teal-200 mb-2">Nom de la playlist</label>
                 <input
                   v-model="newPlaylistName"
                   type="text"
-                  class="w-full px-4 py-2 bg-black/70 text-white rounded focus:outline-none focus:ring-2 focus:ring-pink-400 border border-pink-400"
+                  class="w-full px-4 py-2 bg-black/70 text-white rounded focus:outline-none focus:ring-2 focus:ring-teal-400 border border-teal-400"
                   placeholder="Ma nouvelle playlist"
                   required
                 />
               </div>
               <div class="mb-4">
-                <label class="block text-pink-200 mb-2">Description</label>
+                <label class="block text-teal-200 mb-2">Description</label>
                 <textarea
                   v-model="newPlaylistDescription"
-                  class="w-full px-4 py-2 bg-black/70 text-white rounded focus:outline-none focus:ring-2 focus:ring-pink-400 border border-pink-400"
+                  class="w-full px-4 py-2 bg-black/70 text-white rounded focus:outline-none focus:ring-2 focus:ring-teal-400 border border-teal-400"
                   placeholder="Ajouter une description (optionnel)"
                   rows="3"
                 ></textarea>
@@ -186,13 +186,13 @@
                 <button
                   type="button"
                   @click="showCreatePlaylistModal = false"
-                  class="px-4 py-2 text-pink-200 hover:text-pink-100"
+                  class="px-4 py-2 text-teal-200 hover:text-teal-100"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white rounded-full font-bold shadow-lg shadow-pink-500/40"
+                  class="px-6 py-2 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-white rounded-full font-bold shadow-lg shadow-teal-500/40"
                 >
                   Créer
                 </button>

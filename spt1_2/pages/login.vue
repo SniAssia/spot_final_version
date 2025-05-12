@@ -1,25 +1,28 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-[#2d0036] to-[#1a0022]">
-    <div class="w-full max-w-md p-8 rounded-2xl shadow-2xl bg-black/80 border border-pink-900">
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-pink-300 mb-2 drop-shadow">Connexion à Spotify</h1>
-        <p class="text-pink-200">Connectez-vous avec votre compte Spotify</p>
+  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-[#003d59] to-[#001e2b]">
+    <div class="w-full max-w-md p-10 rounded-3xl shadow-2xl bg-black/90 border border-teal-900">
+      <div class="text-center mb-10">
+        <h1 class="text-5xl font-extrabold text-teal-300 mb-3 drop-shadow-lg">Connexion à Spotify</h1>
+        <p class="text-teal-200 text-lg">Connectez-vous avec votre compte Spotify</p>
       </div>
-      <div class="space-y-6">
+      <div class="space-y-8">
+        <!-- Connexion avec Spotify -->
         <button
           @click="redirectToSpotify"
-          class="w-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white font-bold py-3 px-8 rounded-full transition duration-200 flex items-center justify-center shadow-lg hover:shadow-pink-500/40 focus:outline-none focus:ring-4 focus:ring-pink-400"
+          class="w-full bg-gradient-to-r from-teal-500 via-teal-400 to-teal-500 hover:from-teal-400 hover:to-teal-400 text-white font-bold py-4 px-10 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-teal-400"
         >
-          <i class="material-icons mr-2 text-pink-100">music_note</i>
+          <i class="material-icons mr-3 text-teal-100">music_note</i>
           Se connecter avec Spotify
         </button>
+        
+        <!-- Lien pour créer un compte Spotify -->
         <div class="mt-8 text-center">
-          <p class="text-pink-200">
+          <p class="text-teal-200">
             Vous n'avez pas de compte ?
             <a
               href="https://www.spotify.com/fr/signup"
               target="_blank"
-              class="text-pink-400 hover:text-pink-300 font-medium underline underline-offset-2"
+              class="text-teal-400 hover:text-teal-300 font-medium underline underline-offset-2"
             >
               Créer un compte Spotify
             </a>
@@ -35,10 +38,10 @@ export default {
   methods: {
     redirectToSpotify() {
       const clientId = '637ca364d801495da5109a9936b99211';
-      const redirectUri = 'https://d614-41-137-204-12.ngrok-free.app/callback'; // Ensure this matches the redirect URI in the Spotify dashboard
+      const redirectUri = 'https://d614-41-137-204-12.ngrok-free.app/callback'; // Assurez-vous que cela correspond à l'URI de redirection dans le tableau de bord Spotify
       console.log('Client ID:', clientId);
       console.log('Redirect URI:', redirectUri);
-      
+
       const scopes = [
         'user-read-private',
         'user-read-email',
@@ -70,7 +73,7 @@ export default {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;
+  font-size: 30px; /* Augmenté pour un effet plus marqué */
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -81,5 +84,9 @@ export default {
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 128, 128, 0.3);
+}
 </style>
-  

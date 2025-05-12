@@ -1,5 +1,5 @@
 <template>
-  <aside class="w-64 bg-gradient-to-b from-black via-[#2d0036] to-[#1a0022] p-4 min-h-screen shadow-2xl border-r border-pink-900">
+  <aside class="w-64 bg-gradient-to-b from-black via-[#003d59] to-[#001e2b] p-4 min-h-screen shadow-2xl border-r border-teal-900">
     <div class="mb-8">
       <img src="../assets/logo-spotify.png" alt="Spotify Logo" class="h-16 mx-auto drop-shadow-lg" />
     </div>
@@ -10,30 +10,30 @@
           <nuxt-link
             to="/"
             exact
-            class="flex items-center text-pink-200 hover:text-pink-400 font-bold transition-colors duration-200"
-            active-class="text-pink-400"
+            class="flex items-center text-teal-200 hover:text-teal-400 font-bold transition-colors duration-200"
+            active-class="text-teal-400"
           >
-            <span class="material-icons mr-4 text-pink-400">home</span>
+            <span class="material-icons mr-4 text-teal-400">home</span>
             Accueil
           </nuxt-link>
         </li>
         <li class="mb-4">
           <nuxt-link
             to="/dashboard"
-            class="flex items-center text-pink-200 hover:text-pink-400 font-bold transition-colors duration-200"
-            active-class="text-pink-400"
+            class="flex items-center text-teal-200 hover:text-teal-400 font-bold transition-colors duration-200"
+            active-class="text-teal-400"
           >
-            <span class="material-icons mr-4 text-pink-400">search</span>
+            <span class="material-icons mr-4 text-teal-400">search</span>
             Rechercher
           </nuxt-link>
         </li>
         <li class="mb-4">
           <nuxt-link
             to="/library"
-            class="flex items-center text-pink-200 hover:text-pink-400 font-bold transition-colors duration-200"
-            active-class="text-pink-400"
+            class="flex items-center text-teal-200 hover:text-teal-400 font-bold transition-colors duration-200"
+            active-class="text-teal-400"
           >
-            <span class="material-icons mr-4 text-pink-400">library_music</span>
+            <span class="material-icons mr-4 text-teal-400">library_music</span>
             Votre Bibliothèque
           </nuxt-link>
         </li>

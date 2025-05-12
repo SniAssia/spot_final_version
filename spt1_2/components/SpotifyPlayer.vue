@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen bg-gray-900 text-white">
     <!-- Barre latérale -->
-    <aside class="w-64 bg-gray-800 p-4">
+    <aside class="w-64 bg-gradient-to-b from-[#003d59] via-[#001e2b] to-[#002d3b] p-4">
       <div class="mb-6">
         <img src="/logo-spotify.png" alt="Spotify Logo" class="h-10">
       </div>
@@ -9,20 +9,20 @@
       <nav>
         <ul>
           <li class="mb-4">
-            <a href="#" class="flex items-center text-white hover:text-green-500">
-              <span class="material-icons mr-4">home</span>
+            <a href="#" class="flex items-center text-teal-200 hover:text-teal-400">
+              <span class="material-icons mr-4 text-teal-400">home</span>
               Accueil
             </a>
           </li>
           <li class="mb-4">
-            <a href="#" class="flex items-center text-white hover:text-green-500">
-              <span class="material-icons mr-4">search</span>
+            <a href="#" class="flex items-center text-teal-200 hover:text-teal-400">
+              <span class="material-icons mr-4 text-teal-400">search</span>
               Rechercher
             </a>
           </li>
           <li class="mb-4">
-            <a href="#" class="flex items-center text-white hover:text-green-500">
-              <span class="material-icons mr-4">library_music</span>
+            <a href="#" class="flex items-center text-teal-200 hover:text-teal-400">
+              <span class="material-icons mr-4 text-teal-400">library_music</span>
               Votre Bibliothèque
             </a>
           </li>
@@ -40,14 +40,14 @@
             v-model="query"
             @keyup.enter="search"
             placeholder="Rechercher des artistes, titres ou podcasts"
-            class="w-full p-2 bg-gray-800 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            class="w-full p-2 bg-gray-800 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
       </header>
 
       <!-- Résultats de recherche -->
       <section class="p-4">
-        <h2 v-if="results" class="text-2xl font-bold mb-4">Résultats de recherche</h2>
+        <h2 v-if="results" class="text-2xl font-bold mb-4 text-teal-400">Résultats de recherche</h2>
         <div v-if="results" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <div
             v-for="item in results"
@@ -59,11 +59,11 @@
               :alt="`Pochette de l'album ${item.album.name}`"
               class="w-full h-48 object-cover mb-4 rounded"
             />
-            <h3 class="text-lg font-semibold mb-1">{{ item.name }}</h3>
+            <h3 class="text-lg font-semibold mb-1 text-teal-200">{{ item.name }}</h3>
             <p class="text-gray-400 mb-2">{{ item.artists[0]?.name }}</p>
             <button
               @click="playTrack(item.uri)"
-              class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+              class="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 px-4 rounded"
             >
               Lire
             </button>
@@ -85,7 +85,7 @@
               d="M4 12a8 8 0 018-8v8H4z"
             ></path>
           </svg>
-          <p class="mt-4">Recherche en cours...</p>
+          <p class="mt-4 text-teal-200">Recherche en cours...</p>
         </div>
       </section>
 
@@ -101,7 +101,7 @@
           <p class="text-gray-400">{{ currentTrack.artist }}</p>
         </div>
         <div class="flex items-center space-x-4">
-          <button @click="pausePlayback" class="text-white hover:text-green-500">
+          <button @click="pausePlayback" class="text-white hover:text-teal-500">
             <span class="material-icons text-3xl">pause_circle_filled</span>
           </button>
         </div>

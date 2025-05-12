@@ -1,0 +1,58 @@
+[
+  {
+    "name": "callback",
+    "path": "/callback",
+    "component": "/workspaces/spot_final_version/spt1_2/pages/callback.vue",
+    "chunkName": "pages/callback",
+    "_name": "_8e73b9b6"
+  },
+  {
+    "name": "dashboard",
+    "path": "/dashboard",
+    "component": "/workspaces/spot_final_version/spt1_2/pages/dashboard.vue",
+    "chunkName": "pages/dashboard",
+    "_name": "_3a2add38"
+  },
+  {
+    "name": "library",
+    "path": "/library",
+    "component": "/workspaces/spot_final_version/spt1_2/pages/library.vue",
+    "chunkName": "pages/library",
+    "_name": "_769ae3ea"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "/workspaces/spot_final_version/spt1_2/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_dc96008e"
+  },
+  {
+    "name": "rechercher",
+    "path": "/rechercher",
+    "component": "/workspaces/spot_final_version/spt1_2/pages/rechercher.vue",
+    "chunkName": "pages/rechercher",
+    "_name": "_713a71b7"
+  },
+  {
+    "name": "search",
+    "path": "/search",
+    "component": "/workspaces/spot_final_version/spt1_2/pages/search.vue",
+    "chunkName": "pages/search",
+    "_name": "_3545ddf0"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/workspaces/spot_final_version/spt1_2/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_6fe546bc"
+  },
+  {
+    "name": "playlist-id",
+    "path": "/playlist/:id?",
+    "component": "/workspaces/spot_final_version/spt1_2/pages/playlist/_id.vue",
+    "chunkName": "pages/playlist/_id",
+    "_name": "_e05e4a46"
+  }
+]

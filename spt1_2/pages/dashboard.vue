@@ -13,7 +13,7 @@
             v-model="query"
             @keyup.enter="search"
             placeholder="Rechercher des artistes, titres ou podcasts"
-            class="w-full p-2 bg-gray-800 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            class="w-full p-3 bg-gray-800 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sea-blue transition-all duration-300"
           />
         </div>
       </header>
@@ -32,18 +32,18 @@
           <div
             v-for="item in results"
             :key="item.id"
-            class="bg-gray-800 p-4 rounded-lg hover:bg-gray-700"
+            class="bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-transform transform hover:scale-105"
           >
             <img
               :src="item.album.images[0]?.url || require('~/assets/default-album.png')"
               :alt="`Pochette de l'album ${item.album.name}`"
-              class="w-full h-48 object-cover mb-4 rounded"
+              class="w-full h-48 object-cover mb-4 rounded transition-transform transform hover:scale-105"
             />
             <h3 class="text-lg font-semibold mb-1">{{ item.name }}</h3>
             <p class="text-gray-400 mb-2">{{ item.artists[0]?.name }}</p>
             <button
               @click="playTrack(item.uri)"
-              class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+              class="w-full bg-sea-blue hover:bg-blue-600 text-white py-2 px-4 rounded transition-all duration-300"
             >
               Lire
             </button>
@@ -70,18 +70,18 @@
       </section>
 
       <!-- Lecteur en bas de page -->
-      <footer v-if="currentTrack" class="fixed bottom-0 left-0 right-0 bg-gray-800 p-4 flex items-center">
+      <footer v-if="currentTrack" class="fixed bottom-0 left-0 right-0 bg-gray-800 p-4 flex items-center rounded-tl-xl rounded-tr-xl shadow-lg">
         <img
           :src="currentTrack.albumCover || require('~/assets/default-album.png')"
           :alt="`Pochette de l'album ${currentTrack.albumName}`"
-          class="w-16 h-16 object-cover mr-4"
+          class="w-16 h-16 object-cover mr-4 rounded"
         />
         <div class="flex-1">
           <p class="text-white font-semibold">{{ currentTrack.name }}</p>
           <p class="text-gray-400">{{ currentTrack.artist }}</p>
         </div>
         <div class="flex items-center space-x-4">
-          <button @click="pausePlayback" class="text-white hover:text-green-500">
+          <button @click="pausePlayback" class="text-white hover:text-sea-blue">
             <span class="material-icons text-3xl">pause_circle_filled</span>
           </button>
         </div>
@@ -253,15 +253,22 @@ export default {
 </script>
 
 <style scoped>
-/* Exemple de styles pour la page de recherche */
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #333;
-  color: white;
+/* Custom CSS for better effects and responsiveness */
+
+/* For the input field when focused */
+input:focus {
+  border-color: #1D4ED8; /* Blue sea */
+  background-color: #333; /* Darker shade for better contrast */
+}
+
+/* Hover effect for cards in search results */
+.grid > div:hover {
+  transform: scale(1.05);
+  background-color: #2D3748; /* Darker gray */
+}
+
+/* Hover effect for images */
+img:hover {
+  transform: scale(1.05);
 }
 </style>
